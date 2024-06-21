@@ -21,3 +21,39 @@ export const getAllNamesThatFinishesInOOrEl = async()=>{
     return result;
 }
 
+//16. Devuelve el nombre y los apellidos de todos los comerciales que ha participado en algÃºn pedido realizado por `MarÃ­a Santana Moreno`.
+
+export const getAllComercialsInfoDoneByMariaSantanaMoreno = async()=>{
+    let [result] = await connection.query(`SELECT co.apellido1, co.nombre, co.apellido2 FROM comercial co INNER JOIN pedido p ON p.id_comercial = co.id INNER JOIN cliente cl ON cl.id = p.id_cliente WHERE concat(cl.nombre, ' ',cl.apellido1, ' ',cl.apellido2) = 'Maria Santana Moreno'`);
+    return result;
+}
+
+//19.Devuelve un listado con **todos los comerciales** junto con los datos de los pedidos que han realizado. Este listado tambiÃ©n debe incluir los comerciales que no han realizado ningÃºn pedido. El listado debe estar ordenado alfabÃ©ticamente por el primer apellido, segundo apellido y nombre de los comerciales.
+
+export const getAllComercialsWithOrdersInfoAndComercialsHaveNotOrdered = async()=>{
+    let [result] = await connection.query(` SELECT co.id, concat(co.apellido1, " " ,co.apellido2, " ", co.nombre) as namefull, pe.total, pe.fecha, pe.id_cliente FROM comercial co left JOIN pedido pe ON pe.id_comercial = co.id ORDER BY namefull LIKE 'A%' ASC , namefull`);
+    return result;
+}
+
+//21.Devuelve un listado que solamente muestre los comerciales que no han realizado ningÃºn pedido
+
+export const getAllComercialsHaveNotOrdered = async()=>{
+    let [result] = await connection.query(` SELECT DISTINCT c.id,c.nombre, CONCAT(c.apellido1,' ',c.apellido2) AS apellido FROM comercial AS c LEFT JOIN pedido AS p ON c.id=p.id_comercial WHERE p.id_comercial IS NULL GROUP BY c.id `);
+    return result;
+}
+
+//25.Calcula el nÃºmero total de comerciales distintos que aparecen en la tabla `pedido`.
+
+export const getAllDistinctComercialesTotalNumber = async()=>{
+    let [result] = await connection.query(` SELECT COUNT(DISTINCT id_comercial) AS 'total_comerciales' FROM pedido `);
+    return result;
+}
+
+//39.Devuelve un listado de los comerciales que no han realizado ningÃºn pedido. (Utilizando `IN` o `NOT IN`)
+
+export const getAllHaveNotOrdered = async()=>{
+    let [result] = await connection.query(`SELECT nombre AS no_realizaron_pedido FROM comercial WHERE id NOT IN(SELECT id_comercial FROM pedido) `);
+    return result;
+}
+
+
