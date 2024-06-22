@@ -1,4 +1,4 @@
-import {connection} from "../../db/connection.js";
+import {connection} from "../db/connection.js";
 
 //3. Devuelve un listado con los identificadores de los clientes que han realizado algÃºn pedido. Tenga en cuenta que no debe mostrar identificadores que estÃ©n repetidos.
 

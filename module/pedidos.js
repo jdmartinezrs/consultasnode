@@ -1,4 +1,4 @@
-import {connection} from "../../db/connection.js";
+import {connection} from "../db/connection.js";
 
 //1. Devuelve un listado con todos los pedidos que se han realizado. Los pedidos deben estar ordenados por la fecha de realizaciÃ³n, mostrando en primer lugar los pedidos mÃ¡s recientes.
 
