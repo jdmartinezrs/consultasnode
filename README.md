@@ -160,6 +160,8 @@ Resuelva todas las consultas utilizando las clÃ¡usulas `LEFT JOIN` y `RIGHT JO
 5. Devuelve un listado con los clientes que no han realizado ningÃºn pedido y de los comerciales que no han participado en ningÃºn pedido. Ordene el listado alfabÃ©ticamente por los apellidos y el nombre. En en listado deberÃ¡ diferenciar de algÃºn modo los clientes y los comerciales.
 
    ```sql
+
+   SELECT cliente.nombre AS nombreCliente,CONCAT(cliente.apellido1,' ',cliente.apellido2) AS apellidoCliente,comercial.nombre AS nombreComercial,CONCAT(comercial.apellido1,' ',comercial.apellido2) AS apellidoComercial FROM pedido RIGHT JOIN cliente ON pedido.id_cliente=cliente.id RIGHT JOIN comercial ON pedido.id_comercial=comercial.id WHERE pedido.id_cliente IS NULL AND pedido.id_comercial IS NULL;
    
    ```
 
